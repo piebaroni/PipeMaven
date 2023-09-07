@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {Component} from 'react'
+import MySelectBox from './components/Selectbox';
+import Pipeline from './components/Pipeline';
 
-function App() {
-  return (
+class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentFunction: 'a'
+    };
+  }
+
+  processData = (data) => {
+    if (data !== this.state.currentFunction) {
+      this.setState({ currentFunction: data });
+    }
+    console.log('Data received in App:', data);
+  };
+
+
+  render() {return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>data-preparation-tool</h1>
       </header>
+      <MySelectBox sendDataToFunction={this.processData}></MySelectBox>
+      <Pipeline nextFunction={this.state.currentFunction}
+          updateFunction={this.processData}></Pipeline>
     </div>
-  );
+  );}
 }
 
 export default App;
