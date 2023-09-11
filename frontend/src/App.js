@@ -14,6 +14,7 @@ class App extends Component {
 
   processData = (data) => {
     if (data !== this.state.currentFunction) {
+      //DA MODIFICARE?
       this.setState({ currentFunction: data });
     }
     console.log('Data received in App:', data);

@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import APIService from './APIService';
 
 class Pipeline extends Component {
 
@@ -12,24 +13,47 @@ class Pipeline extends Component {
 
     deletePipeline = (event) => {
         console.log('DELETE PIPELINE')
-        this.setState({pipeline: []});
-      };
+        this.setState({ pipeline: [] });
+    };
 
     componentDidUpdate(prevProps) {
-        // Check if dynamicValue has changed
         if (this.props.nextFunction !== prevProps.nextFunction) {
-            // Append the new value to the array in state
             this.setState((prevState) => ({
                 pipeline: [...prevState.pipeline, this.props.nextFunction],
             }));
         }
     }
+
+    evaluatePipeline = () => {
+        const { pipeline } = this.state;
+        APIService.EvaluatePipeline({ pipeline })
+            .catch((error) => console.log('error', error));
+    };
+
+    execPipeline = () => {
+        const { pipeline } = this.state;
+        APIService.ExecPipeline({ pipeline })
+            .catch((error) => console.log('error', error));
+    };
+
+    handleEvaluate = (event) => {
+        event.preventDefault();
+        this.evaluatePipeline();
+    };
+
+    handleExec = (event) => {
+        event.preventDefault();
+        this.execPipeline();
+    };
+
     render() {
         return (
             <div>
                 <h1>PIPELINE: </h1>
                 <p>{this.state.pipeline.join(', ')}</p>
                 <button onClick={this.deletePipeline}>Delete Pipeline</button>
+                <button onClick={this.handleEvaluate}>Evaluate Pipeline</button>
+                <button onClick={this.handleExec}>Execute Pipeline</button>
             </div>
         );
     }
