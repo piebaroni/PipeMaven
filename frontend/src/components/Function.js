@@ -17,8 +17,8 @@ class Function extends Component {
     render() {
       return (
         <div>
-            <p>{this.props.name}!</p>
-            <button onClick={this.addFunction}>Add function to pipeline</button>
+            <h3>{this.props.name}!</h3>
+            <button onClick={this.addFunction} className='button-59'>Add function to pipeline</button>
         </div>)
     }
   }

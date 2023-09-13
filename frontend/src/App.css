@@ -1,7 +1,8 @@
 .App {
   text-align: center;
+  font-family: Inter,sans-serif;
 }
-
+  
 .App-header {
   background-color: #282c34;
   min-height: 5vh;
@@ -20,10 +21,129 @@
 
 .flex-child-element {
   flex: 1;
-  border: 2px solid blueviolet;
+  border: 2px solid #06f;
   margin: 10px;
+  border-radius: 25px;
 }
 
 .flex-child-element:first-child {
   margin-right: 20px;
+}
+
+.button-59 {
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #06f;
+  border-radius: 25px;
+  box-sizing: border-box;
+  color: #06f;
+  cursor: pointer;
+  display: inline-flex;
+  fill: #06f;
+  font-family: Inter,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: -.8px;
+  line-height: 24px;
+  min-width: 140px;
+  outline: 0;
+  padding: 0 17px;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-59:focus {
+  color: #171e29;
+}
+
+.button-59:hover {
+  border-color: #000;
+  color: #000;
+  fill: #000;
+}
+
+.button-59:active {
+  border-color: #000;
+  color: #000;
+  fill: #000;
+}
+
+@media (min-width: 768px) {
+  .button-59 {
+    min-width: 170px;
+  }
+}
+
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.styled-table thead tr {
+  background-color: #06f;
+  color: #ffffff;
+  text-align: center;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #06f;
+}
+
+.showData{
+  margin-top: 20px;
+}
+
+input {
+  display: none;
+}
+
+footer {
+  left:0;
+  bottom:0;
+  right:0;
+  background-color: #282c34;
+  min-height: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(5px + 2vmin);
+  color: white;
+}
+
+a:link {
+  color: white;
+}
+
+a:visited{
+  color: white
+}
+
+a:hover {
+  color: #06f
 }

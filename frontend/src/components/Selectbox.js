@@ -268,10 +268,9 @@ class MySelectBox extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.reset}>RESET</button>
         <div className='flex-parent-element'>
           <div className='flex-child-element magenta'>
-            <label>Select the first option:</label>
+            <label>Select the first option:  </label>
             <select value={this.state.selectedOption1} onChange={this.handleOption1Change}>
               <option value="">-- Select an option --</option>
               {this.options_1.map((option, index) => (
@@ -284,7 +283,7 @@ class MySelectBox extends Component {
 
           {this.state.selectedOption1 && (
             <div className='flex-child-element green'>
-              <label>Select the second option:</label>
+              <label>Select the second option:  </label>
               <select value={this.state.selectedOption2} onChange={this.handleOption2Change}>
                 <option value="">-- Select an option --</option>
                 {this.state.secondSelectOptions && this.state.secondSelectOptions.map((option, index) => (
@@ -298,7 +297,7 @@ class MySelectBox extends Component {
 
           {this.state.selectedOption2 && (
             <div className='flex-child-element green'>
-              <label>Select the third option:</label>
+              <label>Select the third option:  </label>
               <select value={this.state.selectedOption3} onChange={this.handleOption3Change}>
                 <option value="">-- Select an option --</option>
                 {this.state.thirdSelectOptions && this.state.thirdSelectOptions.map((option, index) => (
@@ -312,7 +311,7 @@ class MySelectBox extends Component {
 
           {this.state.selectedOption3 && (
             <div className='flex-child-element green'>
-              <label>Select the fourth option:</label>
+              <label>Select the fourth option:  </label>
               <select value={this.state.selectedOption4} onChange={this.handleOption4Change}>
                 <option value="">-- Select an option --</option>
                 {this.state.fourthSelectOptions && this.state.fourthSelectOptions.map((option, index) => (
@@ -326,7 +325,7 @@ class MySelectBox extends Component {
 
           {this.state.selectedOption4 && (
             <div className='flex-child-element green'>
-              <label>Select the fifth option:</label>
+              <label>Select the fifth option:  </label>
               <select value={this.state.selectedOption5} onChange={this.handleOption5Change}>
                 <option value="">-- Select an option --</option>
                 {this.state.fifthSelectOptions && this.state.fifthSelectOptions.map((option, index) => (
@@ -340,7 +339,7 @@ class MySelectBox extends Component {
 
           {this.state.selectedOption5 && (
             <div className='flex-child-element green'>
-              <label>Select the sixth option:</label>
+              <label>Select the sixth option:  </label>
               <select value={this.state.selectedOption6} onChange={this.handleOption6Change}>
                 <option value="">-- Select an option --</option>
                 {this.state.sixthSelectOptions && this.state.sixthSelectOptions.map((option, index) => (
@@ -351,22 +350,15 @@ class MySelectBox extends Component {
               </select>
             </div>
           )}
-
-          {this.state.selectedFunction && (
-            <div>
-              <PipelineFunction name={this.state.selectedFunction} onDataReceived={this.onDataReceived} />
-            </div>
-          )
-
-          }
         </div>
+        
+        {this.state.selectedFunction && (
+          <div>
+            <PipelineFunction name={this.state.selectedFunction} onDataReceived={this.onDataReceived} />
+          </div>
+        )
 
-        <p>Selected first option: {this.state.selectedOption1}</p>
-        <p>Selected second option: {this.state.selectedOption2}</p>
-        <p>Selected third option: {this.state.selectedOption3}</p>
-        <p>Selected fourth option: {this.state.selectedOption4}</p>
-        <p>Selected fifth option: {this.state.selectedOption5}</p>
-        <p>Selected function: {this.state.selectedFunction}</p>
+        }
 
       </div>
     );

@@ -32,6 +32,7 @@ class Pipeline extends Component {
 
     execPipeline = () => {
         const { pipeline } = this.state;
+        console.log(pipeline)
         APIService.ExecPipeline({ pipeline })
             .catch((error) => console.log('error', error));
     };
@@ -44,16 +45,17 @@ class Pipeline extends Component {
     handleExec = (event) => {
         event.preventDefault();
         this.execPipeline();
+        
     };
 
     render() {
         return (
             <div>
-                <h1>PIPELINE: </h1>
+                <h2>PIPELINE: </h2>
                 <p>{this.state.pipeline.join(', ')}</p>
-                <button onClick={this.deletePipeline}>Delete Pipeline</button>
-                <button onClick={this.handleEvaluate}>Evaluate Pipeline</button>
-                <button onClick={this.handleExec}>Execute Pipeline</button>
+                <button onClick={this.deletePipeline} className="button-59">Delete Pipeline</button>
+                <button onClick={this.handleEvaluate} className="button-59">Evaluate Pipeline</button>
+                <button onClick={this.handleExec} className="button-59">Execute Pipeline</button>
             </div>
         );
     }
