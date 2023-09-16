@@ -353,9 +353,7 @@ class MySelectBox extends Component {
         </div>
         
         {this.state.selectedFunction && (
-          <div>
             <PipelineFunction name={this.state.selectedFunction} onDataReceived={this.onDataReceived} />
-          </div>
         )
 
         }

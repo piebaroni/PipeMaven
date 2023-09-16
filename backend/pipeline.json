@@ -1,0 +1,4 @@
+{
+    "select_dtypes": ["include=['float64']", "exclude=[]"],
+    "add": ["1"]
+}

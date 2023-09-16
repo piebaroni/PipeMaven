@@ -54,8 +54,8 @@ class Pipeline extends Component {
                 <h2>PIPELINE: </h2>
                 <p>{this.state.pipeline.join(', ')}</p>
                 <button onClick={this.deletePipeline} className="button-59">Delete Pipeline</button>
-                <button onClick={this.handleEvaluate} className="button-59">Evaluate Pipeline</button>
                 <button onClick={this.handleExec} className="button-59">Execute Pipeline</button>
+                <button onClick={this.handleEvaluate} className="button-59">Execute & Evaluate</button>
             </div>
         );
     }

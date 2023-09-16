@@ -2,8 +2,8 @@
 from flask import Flask
 from flask import request
 import os
-import csv
 from flask_cors import CORS
+import json
 
 fileExists = False
 app = Flask(__name__)

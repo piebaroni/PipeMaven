@@ -4,7 +4,7 @@
 }
   
 .App-header {
-  background-color: #282c34;
+  background-color: #616161;
   min-height: 5vh;
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@
 
 .flex-child-element {
   flex: 1;
-  border: 2px solid #06f;
+  border: 2px solid #1100c4;
   margin: 10px;
   border-radius: 25px;
 }
@@ -33,13 +33,13 @@
 .button-59 {
   align-items: center;
   background-color: #fff;
-  border: 2px solid #06f;
+  border: 2px solid #c40000;
   border-radius: 25px;
   box-sizing: border-box;
-  color: #06f;
+  color: #c40000;
   cursor: pointer;
   display: inline-flex;
-  fill: #06f;
+  fill: #c40000;
   font-family: Inter,sans-serif;
   font-size: 16px;
   font-weight: 600;
@@ -63,15 +63,15 @@
 }
 
 .button-59:hover {
-  border-color: #000;
-  color: #000;
-  fill: #000;
+  border-color: #09cc00;
+  color: #09cc00;
+  fill: #09cc00;
 }
 
 .button-59:active {
-  border-color: #000;
-  color: #000;
-  fill: #000;
+  border-color: #09cc00;
+  color: #09cc00;
+  fill: #09cc00;
 }
 
 @media (min-width: 768px) {
@@ -92,7 +92,7 @@
 }
 
 .styled-table thead tr {
-  background-color: #06f;
+  background-color: #c40000;
   color: #ffffff;
   text-align: center;
 }
@@ -111,14 +111,14 @@
 }
 
 .styled-table tbody tr:last-of-type {
-  border-bottom: 2px solid #06f;
+  border-bottom: 2px solid #c40000;
 }
 
 .showData{
   margin-top: 20px;
 }
 
-input {
+#input {
   display: none;
 }
 
@@ -126,7 +126,7 @@ footer {
   left:0;
   bottom:0;
   right:0;
-  background-color: #282c34;
+  background-color: #616161;
   min-height: 5vh;
   display: flex;
   flex-direction: column;
@@ -145,5 +145,5 @@ a:visited{
 }
 
 a:hover {
-  color: #06f
+  color: #09cc00
 }

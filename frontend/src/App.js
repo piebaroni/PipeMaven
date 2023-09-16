@@ -4,6 +4,7 @@ import MySelectBox from './components/Selectbox';
 import Pipeline from './components/Pipeline';
 import APIService from './components/APIService';
 import CSVDataTable from './components/CSVDataTable';
+import "./global.css"
 
 class App extends Component {
 
@@ -63,6 +64,14 @@ class App extends Component {
         }
         parsedData.push(row);
       }
+    }
+
+    if (numRowsToParse >= 11) {
+      const newRow = {};
+      for (let i = 0; i < headers.length; i++) {
+        newRow[headers[i].trim()] = '...'; // You can set the content here
+      }
+      parsedData.push(newRow);
     }
 
     this.setState({ csvData: parsedData }, () => {
