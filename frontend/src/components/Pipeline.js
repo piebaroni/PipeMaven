@@ -32,7 +32,6 @@ class Pipeline extends Component {
 
     execPipeline = () => {
         const { pipeline } = this.state;
-        console.log(pipeline)
         APIService.ExecPipeline({ pipeline })
             .catch((error) => console.log('error', error));
     };
@@ -45,7 +44,7 @@ class Pipeline extends Component {
     handleExec = (event) => {
         event.preventDefault();
         this.execPipeline();
-        
+
     };
 
     render() {

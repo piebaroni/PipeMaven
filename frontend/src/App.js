@@ -11,9 +11,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentFunction: 'a',
+      currentFunction: '',
       file: null,
-      fileExists: false,
       csvData: []
     };
   }
@@ -65,7 +64,6 @@ class App extends Component {
         parsedData.push(row);
       }
     }
-
     if (numRowsToParse >= 11) {
       const newRow = {};
       for (let i = 0; i < headers.length; i++) {
@@ -100,8 +98,7 @@ class App extends Component {
           <button onClick={this.handleUploadClick} className='button-59'>Upload Dataset</button>
           <CSVDataTable data={this.state.csvData}></CSVDataTable>
         </div>
-        <Pipeline nextFunction={this.state.currentFunction}
-          updateFunction={this.processData} fileExists={this.state.fileExists}></Pipeline>
+        <Pipeline nextFunction={this.state.currentFunction} updateFunction={this.processData}></Pipeline>
         <footer>
           <p>Author: Pietro Baroni  <br></br>
             <a href="https://github.com/piebaroni/dataPreparationTool.git">GitHub Repository</a></p>

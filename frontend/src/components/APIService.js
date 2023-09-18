@@ -35,7 +35,7 @@ export default class APIService{
 			})
 			if (response.status === 201) {
 				alert("Pipeline executed!");
-			  } else {
+			  } else if (response.status === 400){
 				alert("Upload the dataset");
 			  }
 		} catch (error) {
