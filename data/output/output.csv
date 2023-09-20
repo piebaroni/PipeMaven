@@ -1,0 +1,11 @@
+,Model,Year,Encoder,Task,Score
+8,ERNIE,2019,Transformer,SST-2,97.8
+9,T5,2019,Transformer,SST-2,97.5
+48,ERNIE,2019,Transformer,QNLI,97.3
+49,T5,2019,Transformer,QNLI,96.9
+10,RoBERTa,2019,Transformer,SST-2,96.7
+50,RoBERTa,2019,Transformer,QNLI,95.4
+16,ERNIE,2019,Transformer,MRPC,93.9
+25,T5,2019,Transformer,STS-B,93.1
+24,ERNIE,2019,Transformer,STS-B,93.0
+17,T5,2019,Transformer,MRPC,92.8

@@ -21,16 +21,26 @@ class Function extends Component {
   };
 
   handleParameterChange = (event) => {
-    this.setState({parameters: event.target.value})
+    this.setState({ parameters: event.target.value })
   }
+
+  addLineBreak = (str) =>
+    str.split('\n').map((subStr) => {
+      return (
+        <>
+          {subStr}
+          <br />
+        </>
+      );
+    });
 
   render() {
     return (
       <div>
         <h3>{this.name}!</h3>
-        <p>{this.info[this.name]}</p>
+        <p>{this.addLineBreak(this.info[this.name])}</p>
         <div>
-          <input  type='text' value={this.state.parameters} onChange={this.handleParameterChange}/>
+          <input type='text' value={this.state.parameters} onChange={this.handleParameterChange} />
         </div>
         <div className='showData'>
           <button onClick={this.addFunction} className='button-59'>Add function to pipeline</button>

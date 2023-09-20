@@ -85,6 +85,34 @@ class App extends Component {
       .catch((error) => console.log('error', error));
   };
 
+  handleDownloadClick = async () => {
+    try {
+      // Call the GetDataset function to upload and get the file
+      const file = await APIService.GetDataset();
+
+      // Create a Blob from the file data
+      const blob = new Blob([file.data], { type: 'text/csv' });
+      console.log(blob)
+
+      // Create a URL for the Blob
+      const url = window.URL.createObjectURL(blob);
+
+      // Create a link element to trigger the download
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'output.csv'; // Specify the desired file name
+
+      // Trigger a click event on the link to start the download
+      a.click();
+
+      // Clean up by revoking the Blob URL
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    }
+  };
+
+
   render() {
     return (
       <div className="App">
@@ -97,6 +125,7 @@ class App extends Component {
           <label htmlFor='input' className='button-59'>Select Dataset</label>
           <button onClick={this.handleUploadClick} className='button-59'>Upload Dataset</button>
           <CSVDataTable data={this.state.csvData}></CSVDataTable>
+          <button onClick={this.handleDownloadClick} className='button-59'>Download Output</button>
         </div>
         <Pipeline nextFunction={this.state.currentFunction} updateFunction={this.processData}></Pipeline>
         <footer>

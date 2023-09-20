@@ -26,11 +26,11 @@ class MySelectBox extends Component {
 
         "selection_time_series": ["at_time", "between_time", "first", "last"],
 
-        "selection_condition": ["dropna", "query"],
+        "selection_condition": ["query"],
 
-        "selection_index": ["take", "tail", "head"],
+        "selection_index": ["tail", "head"],
 
-        "projection_selection": ["drop", "filter", "truncate"],
+        "projection_selection": ["take", "drop", "filter", "truncate", "dropna"],
 
         "fusion": ["append", "join_"],
 
@@ -38,15 +38,19 @@ class MySelectBox extends Component {
 
         "join_": ["join", "merge"],
 
-        "augmentation": ["horizontal", "vertical"],
+        "augmentation": ["horizontal", "vertical", "horizontal_vertical"],
 
         "horizontal": ["assign"],
 
-        "vertical": ["asfreq", "insert"],
+        "vertical": ["insert"],
+        
+        "horizontal_vertical": ["asfreq"],
 
         "transformation": ["apply_function", "combine", "modify", "time_series", "sort", "null_values"],
 
         "apply_function": ["math_operators", "change_elements", "threshold", "cumulative", "boolean_output", "others"],
+
+        "apply_function_change_elements": ["pct_change", "diff"],
 
         "apply_function_math_operators": ["addition", "subtraction", "divide", "multiply", "matrix_moltiplication", "module", "power", "round"],
 
@@ -66,7 +70,7 @@ class MySelectBox extends Component {
 
         "apply_function_math_operators_round": ["round"],
 
-        "apply_function_others": ["where", "mask", "apply", "applymap", "pipe", "transform"],
+        "apply_function_others": ["where", "mask", "apply", "map", "pipe", "transform"],
 
         "apply_function_threshold": ["clip"],
 
@@ -100,7 +104,6 @@ class MySelectBox extends Component {
 
         "null_values": ["interpolate", "fillna"]
       },
-
       selectedOption1: '',
       selectedOption2: '',
       selectedOption3: '',
@@ -120,11 +123,11 @@ class MySelectBox extends Component {
     this.functions = ['get', 'pop', 'select_dtypes', 'nlargest', 'nsmallest', 'sample', 'drop_duplicates', 'at_time',
       'between_time', 'first', 'last', 'dropna', 'query', 'take', 'tail', 'head', 'drop', 'filter', 'truncate', "join",
       "merge", "assign", "asfreq", "insert", "add", "radd", "sub", "rsub", "div", "truediv", "floordiv", "rdiv", "rtruediv",
-      "rfloordiv", "mul", "rmul", "dot", "mod", "rmod", "abs", "pow", "rpow", "round", "where", "mask", "apply", "applymap",
+      "rfloordiv", "mul", "rmul", "dot", "mod", "rmod", "abs", "pow", "rpow", "round", "where", "mask", "apply", "map",
       "pipe", "transform", "clip", "cummax", "cummin", "cumprod", "cumsum", "lt", "gt", "ge", "le", "eq", "ne", "isna",
       "isnull", "notna", "notnull", "combine", "combine_first", "reindex", "reindex_like", "rename", "rename_axis",
       "reset_index", "set_axis", "set_index", "shift", "to_timestamp", "tz_convert", "tz_localize", "sort_values", "sort_index",
-      "interpolate", "fillna"
+      "interpolate", "fillna", "pct_change", "diff"
     ];
 
     this.onDataReceived = this.onDataReceived.bind(this)
