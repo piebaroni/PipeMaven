@@ -16,7 +16,11 @@ export default class APIService {
 				},
 				body: JSON.stringify(body)
 			})
-			return await response.json()
+			if (response.status === 201) {
+				alert("Pipeline executed!");
+			} else if (response.status === 400) {
+				alert("Upload the dataset");
+			}
 		} catch (error) {
 			return console.log(error)
 		}

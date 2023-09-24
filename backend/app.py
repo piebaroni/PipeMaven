@@ -3,7 +3,7 @@ from flask import Flask
 from flask import request, send_file, after_this_request
 import os
 from flask_cors import CORS
-from pipelines import exec_pipeline2
+from pipelines import exec_pipeline2, eval_pipeline
 import sys
 
 fileExists = False
@@ -15,18 +15,16 @@ def exec_pipeline():
     if not fileExists:
          return 'No file uploaded', 400
     text = request.json['pipeline']
-    print(text, sys.stderr)
     exec_pipeline2(text)
     return  'Done', 201
 
 
 @app.route("/evaluate", methods=["POST"])
 def evaluate_pipeline():
-    #current_directory = os.path.dirname(os.path.abspath(__file__))
-    #input_file_path = os.path.join(current_directory, "../data/output/evaluate_pipeline.txt")
+    if not fileExists:
+        return 'No file uploaded', 400
     text = request.json['pipeline']
-    #with open(input_file_path, 'w') as file:
-    #     file.write(str(text))
+    eval_pipeline(text)
     return 'Done', 201
 
 @app.route("/dataset", methods=["POST"])
