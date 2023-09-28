@@ -10,6 +10,7 @@ fileExists = False
 app = Flask(__name__)
 CORS(app)
 
+#Execute pipeline
 @app.route("/exec", methods=["POST"])
 def exec_pipeline():
     if not fileExists:
@@ -18,7 +19,7 @@ def exec_pipeline():
     exec_pipeline2(text)
     return  'Done', 201
 
-
+#Execute and evaluate pipeline
 @app.route("/evaluate", methods=["POST"])
 def evaluate_pipeline():
     if not fileExists:
@@ -27,6 +28,7 @@ def evaluate_pipeline():
     eval_pipeline(text)
     return 'Done', 201
 
+#Upload dataset
 @app.route("/dataset", methods=["POST"])
 def setDataset():
      global fileExists
@@ -46,6 +48,7 @@ def setDataset():
 
      return 'CSV file saved successfully', 201
 
+#Download Dataset
 @app.route("/get_dataset", methods=["GET"])
 def get_dataset():
      current_directory = os.path.dirname(os.path.abspath(__file__))
