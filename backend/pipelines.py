@@ -2,7 +2,18 @@ import pandas as pd
 import os
 import time
 import sys
+import re
 from scipy.stats import entropy
+
+#Normalize column
+def normalize(df, operation):
+    matches = re.findall(r'\((.*?)\)', operation)
+    for elem in matches:
+        columns = re.split(r'\s*,\s*', elem)
+        for column in columns:
+            df[column] = (df[column] - df[column].mean()) / df[column].std()
+    return df
+
 
 #Execute pipeline
 def exec_pipeline2(operations):
@@ -19,10 +30,10 @@ def eval_pipeline(operations):
     current_directory = os.path.dirname(os.path.abspath(__file__))
     input_file_path = os.path.join(current_directory, "../data/input/input.csv")
     output_file_path = os.path.join(current_directory, "../data/output/output.csv")
+    df_modified = None
     df = pd.read_csv(input_file_path)
     #Completeness
-    completeness_start = df.count()/df.size
-
+    completeness_start = df.count()/df.shape[0]
     #Average Shannon's Entropy
     i = 0
     total = 0
@@ -37,18 +48,24 @@ def eval_pipeline(operations):
     #Execute Pipeline + Calculate time
     start_time = time.time_ns()
     for operation in operations:
-        df_modified = eval('df.' + operation)
+        if operation.startswith('normalize'):
+            if df_modified is None:
+                df_modified = normalize(df, operation)
+            else:
+                df_modified = normalize(df_modified, operation)
+        else:
+            df_modified = eval('df.' + operation)
     end_time = time.time_ns()
     total_time = end_time - start_time
 
     #Completeness
-    completeness_end = df_modified.count()/df_modified.size
+    completeness_end = df_modified.count()/df_modified.shape[0]
     
     #Average Shannon's Entropy
     i = 0
     total = 0
-    for column in df.columns:
-        counts = df[column].value_counts()
+    for column in df_modified.columns:
+        counts = df_modified[column].value_counts()
         prob = counts/len(df)
         entropy_value = entropy(prob, base = 2)
         total += entropy_value
@@ -63,11 +80,12 @@ def eval_pipeline(operations):
     else:
         differences = (df != df_modified).sum().sum()
 
-    print('Pipeline Execution Time: ' + str(total_time) + 'ns, Completeness Before Pipeline:\n' 
-          + str(completeness_start * 100) + '%, Completeness After Pipeline:\n' + str(completeness_end * 100)
-          + "%, Average Shannon's Entropy Before Pipeline: " + str(shannon_start) 
-          + ", Average Shannon's Entropy After Pipeline: " + str(shannon_end)
-          + '# Cells Modified: ' + str(differences), sys.stderr)
+    print('Pipeline Execution Time: ' + str(total_time) + 'ns,\nCompleteness Before Pipeline: ' 
+          + str(completeness_start.mean(numeric_only=True) * 100) + '%,\nCompleteness After Pipeline: ' 
+          + str(completeness_end.mean(numeric_only=True) * 100)
+          + "%,\nAverage Shannon's Entropy Before Pipeline: " + str(shannon_start) 
+          + ",\nAverage Shannon's Entropy After Pipeline: " + str(shannon_end)
+          + ',\n# Cells Modified: ' + str(differences), sys.stderr)
     
     #Save Dataset
-    df_modified.to_csv(output_file_path)
+    df_modified.to_csv(output_file_path, index = False)

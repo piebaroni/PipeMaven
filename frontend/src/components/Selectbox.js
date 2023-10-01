@@ -52,7 +52,7 @@ class MySelectBox extends Component {
 
         "apply_function_change_elements": ["pct_change", "diff"],
 
-        "apply_function_math_operators": ["addition", "subtraction", "divide", "multiply", "matrix_moltiplication", "module", "power", "round"],
+        "apply_function_math_operators": ["addition", "subtraction", "divide", "multiply", "matrix_moltiplication", "module", "power", "round", "normalize"],
 
         "apply_function_math_operators_addition": ["add", "radd"],
 
@@ -127,7 +127,7 @@ class MySelectBox extends Component {
       "pipe", "transform", "clip", "cummax", "cummin", "cumprod", "cumsum", "lt", "gt", "ge", "le", "eq", "ne", "isna",
       "isnull", "notna", "notnull", "combine", "combine_first", "reindex", "reindex_like", "rename", "rename_axis",
       "reset_index", "set_axis", "set_index", "shift", "to_timestamp", "tz_convert", "tz_localize", "sort_values", "sort_index",
-      "interpolate", "fillna", "pct_change", "diff"
+      "interpolate", "fillna", "pct_change", "diff", "normalize"
     ];
 
     this.onDataReceived = this.onDataReceived.bind(this)

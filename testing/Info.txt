@@ -1,0 +1,16 @@
+Pipeline 1: projection(remove 'fea_2', 'fea_5'), normalize('fea_10', 'fea_11')
+Pipeline 2: projection(remove 'fea_2'), normalize('fea_10', 'fea_11')
+Pipeline 3: transformation(interpolate 'fea_2'), normalize('fea_10', 'fea_11')
+DATASET 1: https://www.kaggle.com/datasets/praveengovi/credit-risk-classification-dataset?select=customer_data.csv
+Before Pipeline: Completeness: 98.98119658119657%, Shannon's Entropy: 3.8197224571391066
+After Pipeline 1: Completeness: 100%, Shannon's Entropy: 3.865515189407168 Accuracy DecisionTree: 62.77%
+After Pipeline 2: Completeness: 100%, Shannon's Entropy: 3.574226964148766 Accuracy DecisionTree: 65.25%
+After Pipeline 3: Completeness: 100%, Shannon's Entropy: 3.814657216463397 Accuracy DecisionTree: 69.15%
+
+Pipeline 1:
+Pipeline 2:
+Pipeline 3:
+DATASET 2: https://www.kaggle.com/datasets/nareshbhat/wine-quality-binary-classification
+Before Pipeline: Completeness: 100%, Shannon's Entropy: 5.554725995241635
+After Pipeline 1: 
+After Pipeline 2:
