@@ -4,7 +4,7 @@ const CSVDataTable = ({ data }) => {
   const headers = data.length > 0 ? Object.keys(data[0]) : [];
 
   return (
-    <>
+    <div className="table-container">
       {data.length === 0 ? (
         <p>No data available.</p>
       ) : (
@@ -12,9 +12,7 @@ const CSVDataTable = ({ data }) => {
           <thead>
             <tr>
               {headers.map((header, index) => (
-                <th key={index}>
-                  {header}
-                </th>
+                <th key={index}>{header}</th>
               ))}
             </tr>
           </thead>
@@ -22,16 +20,14 @@ const CSVDataTable = ({ data }) => {
             {data.map((row, index) => (
               <tr key={index}>
                 {headers.map((header, columnIndex) => (
-                  <td key={columnIndex}>
-                    {row[header]}
-                  </td>
+                  <td key={columnIndex}>{row[header]}</td>
                 ))}
               </tr>
             ))}
           </tbody>
         </table>
       )}
-    </>
+    </div>
   );
 };
 

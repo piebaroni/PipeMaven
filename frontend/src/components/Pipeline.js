@@ -7,6 +7,7 @@ class Pipeline extends Component {
         super(props);
         this.state = {
             pipeline: [],
+            label: ''
         }
         this.deletePipeline = this.deletePipeline.bind(this)
     }
@@ -26,7 +27,8 @@ class Pipeline extends Component {
 
     evaluatePipeline = () => {
         const { pipeline } = this.state;
-        APIService.EvaluatePipeline({ pipeline })
+        const label = this.state.label;
+        APIService.EvaluatePipeline({ pipeline, label })
             .catch((error) => console.log('error', error));
     };
 
@@ -47,6 +49,10 @@ class Pipeline extends Component {
 
     };
 
+    handleLabelChange = (event) => {
+        this.setState({label: event.target.value})
+    };
+
     render() {
         return (
             <div>
@@ -55,6 +61,10 @@ class Pipeline extends Component {
                 <button onClick={this.deletePipeline} className="button-59">Delete Pipeline</button>
                 <button onClick={this.handleExec} className="button-59">Execute Pipeline</button>
                 <button onClick={this.handleEvaluate} className="button-59">Execute & Evaluate</button>
+                <div>
+                    <p>Set Label name for evaluation</p>
+                    <input type='text' value={this.state.label} onChange={this.handleLabelChange} className='label'/>
+                </div>
             </div>
         );
     }

@@ -4,6 +4,7 @@ import time
 import sys
 import re
 from scipy.stats import entropy
+from evaluation import get_entropy, check_changes, check_accuracy
 
 #Normalize column
 def normalize(df, operation):
@@ -26,7 +27,7 @@ def exec_pipeline2(operations):
     df.to_csv(output_file_path)
 
 #Execute and evaluate pipeline
-def eval_pipeline(operations):
+def eval_pipeline(operations, label):
     current_directory = os.path.dirname(os.path.abspath(__file__))
     input_file_path = os.path.join(current_directory, "../data/input/input.csv")
     output_file_path = os.path.join(current_directory, "../data/output/output.csv")
@@ -34,16 +35,12 @@ def eval_pipeline(operations):
     df = pd.read_csv(input_file_path)
     #Completeness
     completeness_start = df.count()/df.shape[0]
+
+    #Accuracy
+    accuracy_start = check_accuracy(df, label)
+
     #Average Shannon's Entropy
-    i = 0
-    total = 0
-    for column in df.columns:
-        counts = df[column].value_counts()
-        prob = counts/len(df)
-        entropy_value = entropy(prob, base = 2)
-        total += entropy_value
-        i += 1
-    shannon_start = total/i
+    shannon_start = get_entropy(df)
 
     #Execute Pipeline + Calculate time
     start_time = time.time_ns()
@@ -60,31 +57,23 @@ def eval_pipeline(operations):
 
     #Completeness
     completeness_end = df_modified.count()/df_modified.shape[0]
+
+    #Accuracy
+    accuracy_end = check_accuracy(df_modified, label)
     
     #Average Shannon's Entropy
-    i = 0
-    total = 0
-    for column in df_modified.columns:
-        counts = df_modified[column].value_counts()
-        prob = counts/len(df)
-        entropy_value = entropy(prob, base = 2)
-        total += entropy_value
-        i += 1
-    shannon_end = total/i
+    shannon_end = get_entropy(df_modified)
 
     #Changes
-    if df.shape != df_modified.shape:
-        row_diff = df_modified.shape[0] - df.shape[0]
-        cols_diff = df_modified.shape[1] - df.shape[1]
-        differences = row_diff * df.shape[1] + cols_diff * df.shape[0]
-    else:
-        differences = (df != df_modified).sum().sum()
+    differences = check_changes(df, df_modified)
 
     print('Pipeline Execution Time: ' + str(total_time) + 'ns,\nCompleteness Before Pipeline: ' 
           + str(completeness_start.mean(numeric_only=True) * 100) + '%,\nCompleteness After Pipeline: ' 
           + str(completeness_end.mean(numeric_only=True) * 100)
           + "%,\nAverage Shannon's Entropy Before Pipeline: " + str(shannon_start) 
           + ",\nAverage Shannon's Entropy After Pipeline: " + str(shannon_end)
+          + ",\nAccuracy on a ML Algorithm Before Pipeline: " + str(accuracy_start)
+          + ",\nAccuracy on a ML Algorithm After Pipeline: " + str(accuracy_end)
           + ',\n# Cells Modified: ' + str(differences), sys.stderr)
     
     #Save Dataset

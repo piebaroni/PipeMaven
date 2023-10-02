@@ -25,7 +25,8 @@ def evaluate_pipeline():
     if not fileExists:
         return 'No file uploaded', 400
     text = request.json['pipeline']
-    eval_pipeline(text)
+    label = request.json['label']
+    eval_pipeline(text, label)
     return 'Done', 201
 
 #Upload dataset

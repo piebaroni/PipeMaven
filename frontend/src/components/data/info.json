@@ -76,7 +76,7 @@
     "sort_index": "Sort object by labels (along an axis).\nParameters: axis: {0 or 'index', 1 or 'columns'}, default 0",
     "nlargest": "Return the first n rows ordered by columns in descending order.\nParameters: n: number of rows to return, columns: column label(s) to order by",
     "nsmallest": "Return the first n rows ordered by columns in ascending    order.\nParameters: n: number of rows to return, columns: column label(s) to order by",
-    "assign ": "Assign new columns to a DataFrame\na",
+    "assign": "Assign new columns to a DataFrame",
     "join": "Join columns of another DataFrame.\nParameters: other: DataFrame to join, how: {'left', 'right', 'outer', 'inner', 'cross'}, default 'left'",
     "merge": "Merge DataFrame or named Series objects with a database-style join.\nParameters: right: object to merge with, how: {'left', 'right', 'outer', 'inner', 'cross'}, default 'inner'",
     "asfreq": "Convert time series to specified frequency.\nParameters: freq: frequency DateOffset or string, method: {'backfill', 'pad'}, default None",

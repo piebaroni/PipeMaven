@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver';
 export default class APIService {
 
 	static async EvaluatePipeline(body) {
+		console.log(body)
 		if (body.pipeline.length === 0) {
 			alert("Please select a pipeline.");
 			return;

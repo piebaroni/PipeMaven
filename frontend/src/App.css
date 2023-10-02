@@ -21,9 +21,10 @@
 
 .flex-child-element {
   flex: 1;
-  border: 2px solid #1100c4;
+  border: 2px solid #c40000;
   margin: 10px;
   border-radius: 25px;
+  padding: 2px;
 }
 
 .flex-child-element:first-child {
@@ -80,8 +81,20 @@
   }
 }
 
+.table-container {
+  overflow-x: auto;
+  overflow-y: auto;
+  max-width: 100%;
+  max-height: 400px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
 .styled-table {
   border-collapse: collapse;
+  width: 100%;
   margin: 25px 0;
   font-size: 0.9em;
   font-family: sans-serif;
@@ -114,12 +127,22 @@
   border-bottom: 2px solid #c40000;
 }
 
+@media screen and (max-width: 600px) {
+  .styled-table {
+    font-size: 12px; 
+  }
+}
+
 .showData{
   margin-top: 20px;
 }
 
 #input {
   display: none;
+}
+
+.label {
+  margin-bottom: 15px;
 }
 
 footer {

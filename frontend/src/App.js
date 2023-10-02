@@ -19,7 +19,6 @@ class App extends Component {
 
   processData = (data) => {
     if (data !== this.state.currentFunction) {
-      //DA MODIFICARE?
       this.setState({ currentFunction: data });
     }
     console.log('Data received in App:', data);
@@ -28,9 +27,8 @@ class App extends Component {
   handleFileChange = (e) => {
     if (e.target.files) {
       const file = e.target.files[0];
-      this.setState({ file: file, fileExists: true }, () => {
-        console.log(this.state.file); // Log the updated state here
-        console.log(this.state.fileExists); // Log the updated state here
+      this.setState({ file: file}, () => {
+        console.log(this.state.file);
         this.readFileContents();
       });
     }
@@ -51,9 +49,9 @@ class App extends Component {
     const lines = csvText.split('\n');
     const headers = lines[0].split(',');
     const parsedData = [];
-    const numRowsToParse = Math.min(lines.length, 11);
+    //const numRowsToParse = Math.min(lines.length, 11);
 
-    for (let i = 1; i < numRowsToParse; i++) {
+    for (let i = 1; i < lines.length; i++) {
       const currentLine = lines[i].split(',');
 
       if (currentLine.length === headers.length) {
@@ -64,17 +62,15 @@ class App extends Component {
         parsedData.push(row);
       }
     }
-    if (numRowsToParse >= 11) {
-      const newRow = {};
-      for (let i = 0; i < headers.length; i++) {
-        newRow[headers[i].trim()] = '...'; // You can set the content here
-      }
-      parsedData.push(newRow);
-    }
+    //if (numRowsToParse >= 11) {
+      //const newRow = {};
+      //for (let i = 0; i < headers.length; i++) {
+        //newRow[headers[i].trim()] = '...';
+      //}
+      //parsedData.push(newRow);
+    //}
 
-    this.setState({ csvData: parsedData }, () => {
-      console.log(this.state.csvData); // Log the updated state here
-    });
+    this.setState({ csvData: parsedData });
   };
 
   handleUploadClick = () => {
@@ -87,25 +83,15 @@ class App extends Component {
 
   handleDownloadClick = async () => {
     try {
-      // Call the GetDataset function to upload and get the file
       const file = await APIService.GetDataset();
-
-      // Create a Blob from the file data
       const blob = new Blob([file.data], { type: 'text/csv' });
-      console.log(blob)
-
-      // Create a URL for the Blob
       const url = window.URL.createObjectURL(blob);
 
-      // Create a link element to trigger the download
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'output.csv'; // Specify the desired file name
-
-      // Trigger a click event on the link to start the download
+      a.download = 'output.csv';
       a.click();
 
-      // Clean up by revoking the Blob URL
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error downloading file:', error);
