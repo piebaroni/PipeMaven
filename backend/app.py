@@ -1,38 +1,43 @@
 # Import the required libraries
 from flask import Flask
-from flask import request, send_file, after_this_request
+from flask import request, send_file, after_this_request, jsonify
 import os
 from flask_cors import CORS
 from pipelines import exec_pipeline2, eval_pipeline
 import sys
 
-fileExists = False
+existsInput = False
+existsOutput = False
 app = Flask(__name__)
 CORS(app)
 
 #Execute pipeline
 @app.route("/exec", methods=["POST"])
 def exec_pipeline():
-    if not fileExists:
+    if not existsInput:
          return 'No file uploaded', 400
+    global existsOutput
     text = request.json['pipeline']
     exec_pipeline2(text)
+    existsOutput = True
     return  'Done', 201
 
 #Execute and evaluate pipeline
 @app.route("/evaluate", methods=["POST"])
 def evaluate_pipeline():
-    if not fileExists:
+    if not existsInput:
         return 'No file uploaded', 400
+    global existsOutput
     text = request.json['pipeline']
     label = request.json['label']
-    eval_pipeline(text, label)
-    return 'Done', 201
+    response = eval_pipeline(text, label)
+    existsOutput = True
+    return jsonify(response), 201
 
 #Upload dataset
 @app.route("/dataset", methods=["POST"])
 def setDataset():
-     global fileExists
+     global existsInput
      current_directory = os.path.dirname(os.path.abspath(__file__))
      destination_path = os.path.join(current_directory, "../data/input/")
      os.makedirs(destination_path, exist_ok=True)
@@ -44,7 +49,7 @@ def setDataset():
 
      if file:
           file.save(os.path.join(destination_path, 'input.csv'))
-          fileExists = True
+          existsInput = True
           return "File uploaded successfully", 201
 
      return 'CSV file saved successfully', 201
@@ -52,6 +57,9 @@ def setDataset():
 #Download Dataset
 @app.route("/get_dataset", methods=["GET"])
 def get_dataset():
+     if not existsOutput:
+          return 'No file to download', 400
+          
      current_directory = os.path.dirname(os.path.abspath(__file__))
      dataset_file_path = os.path.join(current_directory, '../data/output/output.csv')
      

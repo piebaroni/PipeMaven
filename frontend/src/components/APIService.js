@@ -7,7 +7,7 @@ export default class APIService {
 		console.log(body)
 		if (body.pipeline.length === 0) {
 			alert("Please select a pipeline.");
-			return;
+			return null;
 		}
 		try {
 			const response = await fetch('http://localhost:5000/evaluate', {
@@ -19,11 +19,15 @@ export default class APIService {
 			})
 			if (response.status === 201) {
 				alert("Pipeline executed!");
+				const responseData = await response.json();
+      			return responseData;
 			} else if (response.status === 400) {
 				alert("Upload the dataset");
+				return null;
 			}
 		} catch (error) {
-			return console.log(error)
+			console.log(error);
+			return null;
 		}
 	}
 
@@ -38,12 +42,13 @@ export default class APIService {
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify(body)
+				body: JSON.stringify(body),
 			})
 			if (response.status === 201) {
 				alert("Pipeline executed!");
 			} else if (response.status === 400) {
 				alert("Upload the dataset");
+				return;
 			}
 		} catch (error) {
 			return console.log(error)
@@ -88,6 +93,9 @@ export default class APIService {
 			const file = new Blob([response.data], { type: type });
 			saveAs(file, "output.csv");
 		  }
+		  else if (response.status === 400) {
+			alert("No file to download");
+		}
 		} catch (error) {
 		  console.error('Error downloading file:', error);
 		  throw error;

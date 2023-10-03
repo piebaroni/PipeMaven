@@ -76,7 +76,6 @@ class App extends Component {
   handleUploadClick = () => {
     const file = this.state.file;
     console.log(file)
-    console.log(this.state.fileExists)
     APIService.SetDataset(file)
       .catch((error) => console.log('error', error));
   };

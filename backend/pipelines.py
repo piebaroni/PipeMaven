@@ -67,14 +67,18 @@ def eval_pipeline(operations, label):
     #Changes
     differences = check_changes(df, df_modified)
 
-    print('Pipeline Execution Time: ' + str(total_time) + 'ns,\nCompleteness Before Pipeline: ' 
-          + str(completeness_start.mean(numeric_only=True) * 100) + '%,\nCompleteness After Pipeline: ' 
-          + str(completeness_end.mean(numeric_only=True) * 100)
-          + "%,\nAverage Shannon's Entropy Before Pipeline: " + str(shannon_start) 
-          + ",\nAverage Shannon's Entropy After Pipeline: " + str(shannon_end)
-          + ",\nAccuracy on a ML Algorithm Before Pipeline: " + str(accuracy_start)
-          + ",\nAccuracy on a ML Algorithm After Pipeline: " + str(accuracy_end)
-          + ',\n# Cells Modified: ' + str(differences), sys.stderr)
+    response = (
+    'Pipeline Execution Time: ' + str(total_time) + 'ns,\n' +
+    'Completeness Before Pipeline: ' + str(completeness_start.mean(numeric_only=True) * 100) + '%,\n' +
+    'Completeness After Pipeline: ' + str(completeness_end.mean(numeric_only=True) * 100) + '%,\n' +
+    "Average Shannon's Entropy Before Pipeline: " + str(shannon_start) + ',\n' +
+    "Average Shannon's Entropy After Pipeline: " + str(shannon_end) + ',\n' +
+    'Accuracy on a ML Algorithm Before Pipeline: ' + str(accuracy_start) + ',\n' +
+    'Accuracy on a ML Algorithm After Pipeline: ' + str(accuracy_end) + ',\n' +
+    '# Cells Modified: ' + str(differences)
+)
     
     #Save Dataset
     df_modified.to_csv(output_file_path, index = False)
+    
+    return response

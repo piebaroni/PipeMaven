@@ -7,7 +7,8 @@ class Pipeline extends Component {
         super(props);
         this.state = {
             pipeline: [],
-            label: ''
+            label: '',
+            response: ''
         }
         this.deletePipeline = this.deletePipeline.bind(this)
     }
@@ -25,11 +26,15 @@ class Pipeline extends Component {
         }
     }
 
-    evaluatePipeline = () => {
+    evaluatePipeline = async () => {
         const { pipeline } = this.state;
         const label = this.state.label;
-        APIService.EvaluatePipeline({ pipeline, label })
+        const responseData = await APIService.EvaluatePipeline({ pipeline, label })
             .catch((error) => console.log('error', error));
+        if (responseData) {
+            console.log("Response data:", responseData);
+            this.setState({response: responseData})
+        }
     };
 
     execPipeline = () => {
@@ -53,6 +58,16 @@ class Pipeline extends Component {
         this.setState({label: event.target.value})
     };
 
+    addLineBreak = (str) =>
+    str.split('\n').map((subStr) => {
+      return (
+        <>
+          {subStr}
+          <br />
+        </>
+      );
+    });
+
     render() {
         return (
             <div>
@@ -65,6 +80,7 @@ class Pipeline extends Component {
                     <p>Set Label name for evaluation</p>
                     <input type='text' value={this.state.label} onChange={this.handleLabelChange} className='label'/>
                 </div>
+                <p>{this.addLineBreak(this.state.response)}</p>
             </div>
         );
     }
