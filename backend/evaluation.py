@@ -1,7 +1,7 @@
 import pandas as pd
 from scipy.stats import entropy
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.metrics import accuracy_score
 
 def get_entropy(df):
@@ -33,10 +33,10 @@ def check_accuracy(df, label):
         X = df[features]
         y = df[label]
         train_x, test_x, train_y, test_y = train_test_split(X, y, random_state=1)
-        tree = DecisionTreeClassifier(random_state=0)
+        tree = HistGradientBoostingClassifier(random_state = 0)
         tree.fit(train_x, train_y)
         y_pred_tree = tree.predict(test_x)
         score_tree = accuracy_score(test_y,y_pred_tree)
         return round(score_tree*100,2)
-    except Exception as e:
+    except Exception:
         return 'error'

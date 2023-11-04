@@ -5,9 +5,8 @@ import PipelineFunction from './Function';
 class MySelectBox extends Component {
   constructor(props) {
     super(props);
-    this.pipeline = this.props.pipeline
     this.state = {
-      lists: {
+      taxonomy_lists: {
         "reduction": ["projection", "selection", "projection_selection"],
 
         "selection": ["ordered_value", "random", "duplicates", "time_series", "condition", "index"],
@@ -116,7 +115,6 @@ class MySelectBox extends Component {
       fourthSelectOptions: [],
       fifthSelectOptions: [],
       sixthSelectOptions: [],
-      receivedData: ''
     };
 
     this.options_1 = ['reduction', 'transformation', 'augmentation', 'fusion'];
@@ -137,7 +135,6 @@ class MySelectBox extends Component {
     this.handleOption4Change = this.handleOption4Change.bind(this);
     this.handleOption5Change = this.handleOption5Change.bind(this);
     this.handleOption6Change = this.handleOption6Change.bind(this);
-    this.reset = this.reset.bind(this)
   }
 
   onDataReceived = (data) => {
@@ -145,14 +142,15 @@ class MySelectBox extends Component {
   };
 
   handleOption1Change = (event) => {
-    const { lists } = this.state
+    const { taxonomy_lists } = this.state
     const selectedValue = event.target.value;
     if (this.functions.includes(selectedValue)) {
       this.setState({ selectedFunction: selectedValue });
     } else {
       this.setState({ selectedOption1: selectedValue }, () => {
-        this.setState({ secondSelectOptions: lists[this.state.selectedOption1] });
-        console.log(this.state.secondSelectOptions)
+        this.setState({ secondSelectOptions: taxonomy_lists[this.state.selectedOption1] }, () => {
+          console.log(this.state.secondSelectOptions);
+        });
         this.setState({ selectedOption2: '' });
         this.setState({ selectedOption3: '' });
         this.setState({ selectedOption4: '' });
@@ -169,14 +167,15 @@ class MySelectBox extends Component {
 
   handleOption2Change = (event) => {
     const selectedValue = event.target.value;
-    const { lists } = this.state
+    const { taxonomy_lists } = this.state
     if (this.functions.includes(selectedValue)) {
       this.setState({ selectedFunction: selectedValue });
     } else {
       this.setState({ selectedOption2: selectedValue }, () => {
         console.log(this.state.selectedOption2)
-        this.setState({ thirdSelectOptions: lists[this.state.selectedOption2] });
-        console.log(this.state.thirdSelectOptions)
+        this.setState({ thirdSelectOptions: taxonomy_lists[this.state.selectedOption2] }, () => {
+          console.log(this.state.thirdSelectOptions);
+        });
         this.setState({ selectedOption3: '' });
         this.setState({ selectedOption4: '' });
         this.setState({ selectedOption5: '' });
@@ -191,14 +190,15 @@ class MySelectBox extends Component {
 
   handleOption3Change = (event) => {
     const selectedValue = event.target.value;
-    const { lists } = this.state
+    const { taxonomy_lists } = this.state
     if (this.functions.includes(selectedValue)) {
       this.setState({ selectedFunction: selectedValue });
     } else {
       this.setState({ selectedOption3: selectedValue }, () => {
         console.log(this.state.selectedOption3)
-        this.setState({ fourthSelectOptions: lists[this.state.selectedOption2 + '_' + this.state.selectedOption3] });
-        console.log(this.state.selectedOption2 + '_' + this.state.selectedOption3)
+        this.setState({ fourthSelectOptions: taxonomy_lists[this.state.selectedOption2 + '_' + this.state.selectedOption3] }, () => {
+          console.log(this.state.selectedOption2 + '_' + this.state.selectedOption3);
+        });
         this.setState({ selectedOption4: '' });
         this.setState({ selectedOption5: '' });
         this.setState({ selectedFunction: '' });
@@ -211,15 +211,16 @@ class MySelectBox extends Component {
 
   handleOption4Change = (event) => {
     const selectedValue = event.target.value;
-    const { lists } = this.state
+    const { taxonomy_lists } = this.state
     if (this.functions.includes(selectedValue)) {
       this.setState({ selectedFunction: selectedValue });
     } else {
       this.setState({ selectedOption4: selectedValue }, () => {
         console.log(this.state.selectedOption3)
         console.log(this.state.selectedOption4)
-        this.setState({ fifthSelectOptions: lists[this.state.selectedOption2 + '_' + this.state.selectedOption3 + '_' + this.state.selectedOption4] });
-        console.log(this.state.selectedOption2 + '_' + this.state.selectedOption3 + '_' + this.state.selectedOption4)
+        this.setState({ fifthSelectOptions: taxonomy_lists[this.state.selectedOption2 + '_' + this.state.selectedOption3 + '_' + this.state.selectedOption4]}, () => {
+          console.log(this.state.selectedOption2 + '_' + this.state.selectedOption3 + '_' + this.state.selectedOption4)
+        });
         this.setState({ selectedOption6: '' })
         this.setState({ selectedFunction: '' });
         this.setState({ sixthSelectOptions: [] })
@@ -229,13 +230,13 @@ class MySelectBox extends Component {
 
   handleOption5Change = (event) => {
     const selectedValue = event.target.value;
-    const { lists } = this.state
+    const { taxonomy_lists } = this.state
     if (this.functions.includes(selectedValue)) {
       this.setState({ selectedFunction: selectedValue });
     } else {
       this.setState({ selectedOption5: selectedValue }, () => {
         console.log(this.state.selectedOption5)
-        this.setState({ sixthSelectOptions: lists[this.state.selectedOption2 + '_' + this.state.selectedOption3 + '_' + this.state.selectedOption4 + '_' + this.state.selectedOption5] });
+        this.setState({ sixthSelectOptions: taxonomy_lists[this.state.selectedOption2 + '_' + this.state.selectedOption3 + '_' + this.state.selectedOption4 + '_' + this.state.selectedOption5] });
         this.setState({ selectedFunction: '' });
       });
     }
@@ -250,23 +251,6 @@ class MySelectBox extends Component {
       this.setState({ selectedFunction: selectedValue });
     }
   };
-
-  reset = (event) => {
-    console.log('RESET')
-    this.setState({ selectedFunction: '' });
-    this.setState({ selectedOption1: '' });
-    this.setState({ selectedOption2: '' });
-    this.setState({ selectedOption3: '' });
-    this.setState({ selectedOption4: '' });
-    this.setState({ selectedOption5: '' });
-    this.setState({ selectedOption6: '' })
-    this.setState({ secondSelectOptions: [] })
-    this.setState({ thirdSelectOptions: [] })
-    this.setState({ forthSelectOptions: [] })
-    this.setState({ fifthSelectOptions: [] })
-    this.setState({ sixthSelectOptions: [] })
-  }
-
 
   render() {
     return (

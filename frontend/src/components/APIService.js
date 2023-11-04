@@ -4,7 +4,6 @@ import { saveAs } from 'file-saver';
 export default class APIService {
 
 	static async EvaluatePipeline(body) {
-		console.log(body)
 		if (body.pipeline.length === 0) {
 			alert("Please select a pipeline.");
 			return null;
@@ -19,7 +18,7 @@ export default class APIService {
 			})
 			if (response.status === 201) {
 				alert("Pipeline executed!");
-				const responseData = await response.json();
+				const responseData = await response.json();	
       			return responseData;
 			} else if (response.status === 400) {
 				alert("Upload the dataset");
@@ -60,10 +59,9 @@ export default class APIService {
 			alert("Please select a file to upload.");
 			return;
 		}
-
 		const formData = new FormData();
 		formData.append("file", file);
-
+		console.log(formData)
 		try {
 			const response = await axios.post(
 				"http://localhost:5000/dataset",
@@ -74,7 +72,6 @@ export default class APIService {
 					},
 				}
 			);
-
 			if (response.status === 201) {
 				alert("File uploaded successfully!");
 			} else {

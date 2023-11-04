@@ -52,7 +52,6 @@ def setDataset():
           existsInput = True
           return "File uploaded successfully", 201
 
-     return 'CSV file saved successfully', 201
 
 #Download Dataset
 @app.route("/get_dataset", methods=["GET"])

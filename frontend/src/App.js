@@ -49,7 +49,6 @@ class App extends Component {
     const lines = csvText.split('\n');
     const headers = lines[0].split(',');
     const parsedData = [];
-    //const numRowsToParse = Math.min(lines.length, 11);
 
     for (let i = 1; i < lines.length; i++) {
       const currentLine = lines[i].split(',');
@@ -62,15 +61,9 @@ class App extends Component {
         parsedData.push(row);
       }
     }
-    //if (numRowsToParse >= 11) {
-      //const newRow = {};
-      //for (let i = 0; i < headers.length; i++) {
-        //newRow[headers[i].trim()] = '...';
-      //}
-      //parsedData.push(newRow);
-    //}
-
-    this.setState({ csvData: parsedData });
+    this.setState({ csvData: parsedData }, () => {
+      console.log(this.state.csvData);
+    });
   };
 
   handleUploadClick = () => {
