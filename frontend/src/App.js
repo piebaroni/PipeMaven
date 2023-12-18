@@ -49,8 +49,9 @@ class App extends Component {
     const lines = csvText.split('\n');
     const headers = lines[0].split(',');
     const parsedData = [];
+    const numRowsToParse = Math.min(lines.length, 11);
 
-    for (let i = 1; i < lines.length; i++) {
+    for (let i = 1; i < numRowsToParse; i++) {
       const currentLine = lines[i].split(',');
 
       if (currentLine.length === headers.length) {
@@ -95,7 +96,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>DATA PREPARATION TOOL</h1>
+          <h1>PipeMaven</h1>
         </header>
         <MySelectBox sendDataToFunction={this.processData}></MySelectBox>
         <div className='showData'>

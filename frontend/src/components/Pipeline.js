@@ -80,6 +80,7 @@ class Pipeline extends Component {
                     <p>Set Label name for evaluation</p>
                     <input type='text' value={this.state.label} onChange={this.handleLabelChange} className='label'/>
                 </div>
+                <h2>Results:</h2>
                 <p>{this.addLineBreak(this.state.response)}</p>
             </div>
         );

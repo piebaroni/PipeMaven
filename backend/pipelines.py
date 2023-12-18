@@ -3,6 +3,7 @@ import os
 import time
 import sys
 import re
+import numpy as np
 from scipy.stats import entropy
 from evaluation import get_entropy, check_changes, check_accuracy
 
@@ -15,6 +16,16 @@ def normalize(df, operation):
             df[column] = (df[column] - df[column].mean()) / df[column].std()
     return df
 
+def one_hot(df, operation):
+    matches = re.findall(r'\((.*?)\)', operation)
+    for elem in matches:
+        columns = re.split(r'\s*,\s*', elem)
+        for i, col in enumerate(columns):
+            dummies = pd.get_dummies(df[col])
+            df_dummies = dummies.add_prefix(col + '_')
+            df = df.join(df_dummies)
+            df = df.drop([col], axis=1)
+    return df
 
 #Execute pipeline
 def exec_pipeline2(operations):
@@ -50,8 +61,19 @@ def eval_pipeline(operations, label):
                 df_modified = normalize(df, operation)
             else:
                 df_modified = normalize(df_modified, operation)
+        elif operation.startswith('one_hot'):
+            if df_modified is None:
+                df_modified = one_hot(df, operation)
+            else:
+                df_modified = one_hot(df_modified, operation)
+        elif operation.strip().startswith('(') :
+            new_operation = operation.strip()[1:-1]
+            exec(new_operation)
         else:
-            df_modified = eval('df.' + operation)
+            if df_modified is None:
+                df_modified = eval('df.' + operation)
+            else:
+                df_modified = eval('df_modified.' + operation)
     end_time = time.time_ns()
     total_time = end_time - start_time
 

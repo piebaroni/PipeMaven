@@ -84,6 +84,9 @@
     "to_timestamp": "Cast to DatetimeIndex of timestamps, at beginning of period.\nParameters: freq: desired frequency, axis: {0 or 'index', 1 or 'columns'}, default 0",
     "tz_convert": "Convert tz-aware axis to target time zone.\nParameters: tz: target timezone, axis: {0 or 'index', 1 or 'columns'}, default 0",
     "tz_localize": "Localize tz-naive index of a Series or DataFrame to target time zone.\nParameters: tz: timezone to localize, axis: {0 or 'index', 1 or 'columns'}, default 0",
-    "normalize": "Standardization of the selected column\nParameters: column name"
+    "normalize": "Standardization of the selected column\nParameters: column name",
+    "one_hot": "One Hot Encoding of the selected columns\nParameters: list of columns",
+    "aggregate": "Aggregate using one or more operations over the specified axis\nParameters: func: function, str, list or dictFunction to use for aggregating the data, axis{0 or 'index', 1 or 'columns'}, default 0",
+    "explode": "Transform each element of a list-like to a row, replicating index values\nParameters: column: column to explode"
 }
 

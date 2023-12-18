@@ -1,0 +1,109 @@
+Pipeline 1: census.csv
+OPERATIONS:
+df.columns = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'label']
+columns = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country', 'label']
+df[columns] = df[columns].applymap(str.strip)
+df_modified = df.replace('?', np.nan)
+one_hot(workclass, education, marital-status, occupation, relationship, race, native-country)
+df_modified = df_modified.replace({'sex': {'Male': 1, 'Female': 0}, 'label': {'<=50K': 0, '>50K': 1}})
+df_modified = df_modified.drop(['fnlwgt'], axis=1)
+
+RESULTS:
+Pipeline Execution Time: 0.3456138s,
+Completeness Before Pipeline: 100.0%,
+Completeness After Pipeline: 100.0%,
+Average Shannon's Entropy Before Pipeline: 2.8781066070808152,
+Average Shannon's Entropy After Pipeline: 0.3373531744120834,
+Accuracy on a ML Algorithm Before Pipeline: could not convert string to float: ' Private',
+Accuracy on a ML Algorithm After Pipeline: 87.57,
+# Cells Modified: 2.995.612
+
+Pipeline 2: compas.csv
+OPERATIONS:
+columns = ['age', 'c_charge_degree', 'race', 'sex', 'priors_count', 'days_b_screening_arrest', 'two_year_recid', 'c_jail_in', 'c_jail_out']
+df_modified = df.drop(df.columns.difference(columns), axis=1)
+df_modified = df_modified.dropna()
+df_modified['race'] = [0 if r != 'Caucasian' else 1 for r in df_modified['race']]
+df_modified = df_modified.rename({'two_year_recid': 'label'}, axis=1)
+df_modified['label'] = [0 if l == 1 else 1 for l in df_modified['label']]
+df_modified['jailtime'] = (pd.to_datetime(df_modified.c_jail_out) - pd.to_datetime(df_modified.c_jail_in)).dt.days
+df_modified = df_modified.drop(['c_jail_in', 'c_jail_out'], axis=1)
+df_modified['c_charge_degree'] = [0 if s == 'M' else 1 for s in df_modified['c_charge_degree']]
+
+RESULTS:
+Pipeline Execution Time: 0.0319968s,
+Completeness Before Pipeline: 81.37269774181232%,
+Completeness After Pipeline: 100.0%,
+Average Shannon's Entropy Before Pipeline: 5.599599641948954,
+Average Shannon's Entropy After Pipeline: 2.4483103142809326,
+Accuracy on a ML Algorithm Before Pipeline: could not convert string to float: 'stephanie nevels',
+Accuracy on a ML Algorithm After Pipeline: 66.82,
+# Cells Modified: -340901
+
+Pipeline 3: german.csv
+OPERATIONS:
+OPERATION A0 - Value transformation of 13 distinc columns
+OPERATION A1 - Generation of two new column from the column personal_status
+Translate gender values
+OPERATION A2 - Drop personal_status column
+OPERATION A3 - One-hot encode of 11 categorical columns
+
+RESULTS:
+Pipeline Execution Time: 0.1449991s,
+Completeness Before Pipeline: 100.0%,
+Completeness After Pipeline: 100.0%,
+Average Shannon's Entropy Before Pipeline: 2.084195887922238,
+Average Shannon's Entropy After Pipeline: 0.9285827754815593,
+Accuracy on a ML Algorithm Before Pipeline: could not convert string to float: 'A14',
+Accuracy on a ML Algorithm After Pipeline: 74.4,
+# Cells Modified: 39000
+
+Pipeline4: transfusion.csv https://www.openml.org/search?type=data&sort=runs&id=1464&status=active
+OPERATIONS:
+Categorical Encoder
+Imputer
+Standard Scaler
+Class Encoder	
+
+RESULTS:
+Pipeline Execution Time: 0.1287323s,
+Completeness Before Pipeline: 100.0%,
+Completeness After Pipeline: 100.0%,
+Average Shannon's Entropy Before Pipeline: 4.428688739721966,
+Average Shannon's Entropy After Pipeline: 0.18106952412414623,
+Accuracy on a ML Algorithm Before Pipeline: 74.33,
+Accuracy on a ML Algorithm After Pipeline: 77.54,
+# Cells Modified: 127908
+
+
+Pipeline5: customers.csv https://www.openml.org/search?type=data&sort=runs&id=1442&status=active
+OPERATIONS:
+Imputer
+Standard Scaler
+Class Encoder	
+
+RESULTS:
+Pipeline Execution Time: 0.0099998s,
+Completeness Before Pipeline: 100.0%,
+Completeness After Pipeline: 100.0%,
+Average Shannon's Entropy Before Pipeline: 6.411632038013595,
+Average Shannon's Entropy After Pipeline: 6.411632038013595,
+Accuracy on a ML Algorithm Before Pipeline: 92.73,
+Accuracy on a ML Algorithm After Pipeline: 92.73,
+# Cells Modified: 3080
+
+Pipeline6: cleveland.csv https://www.openml.org/search?type=data&sort=runs&id=194&status=active
+OPERATIONS:
+CategoricalEncoder
+Imputer
+StandardScaler
+
+RESULTS:
+Pipeline Execution Time: 0.0430033s,
+Completeness Before Pipeline: 99.86798679867987%,
+Completeness After Pipeline: 100.0%,
+Average Shannon's Entropy Before Pipeline: 3.104902911182914,
+Average Shannon's Entropy After Pipeline: 1.6911882470387252,
+Accuracy on a ML Algorithm Before Pipeline: 78.95,
+Accuracy on a ML Algorithm After Pipeline: 82.89,
+# Cells Modified: 1515

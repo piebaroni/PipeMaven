@@ -9,7 +9,7 @@ class MySelectBox extends Component {
       taxonomy_lists: {
         "reduction": ["projection", "selection", "projection_selection"],
 
-        "selection": ["ordered_value", "random", "duplicates", "time_series", "condition", "index"],
+        "selection": ["ordered_value", "random", "duplicates", "time_series", "condition", "index", "aggregate"],
 
         "projection": ["column_type", "column_name"],
 
@@ -37,61 +37,61 @@ class MySelectBox extends Component {
 
         "join_": ["join", "merge"],
 
-        "augmentation": ["horizontal", "vertical", "horizontal_vertical"],
+        "augmentation": ["horizontal", "vertical", "list_expansion"],
 
-        "horizontal": ["assign"],
+        "vertical": ["assign", "asfreq"],
 
-        "vertical": ["insert"],
-        
-        "horizontal_vertical": ["asfreq"],
+        "horizontal": ["insert", "one_hot"],
 
-        "transformation": ["apply_function", "combine", "modify", "time_series", "sort", "null_values"],
+        "list_expansion": ["explode"],
 
-        "apply_function": ["math_operators", "change_elements", "threshold", "cumulative", "boolean_output", "others"],
+        "transformation": ["data_processing", "combine", "modify", "time_series", "sort", "null_values"],
 
-        "apply_function_change_elements": ["pct_change", "diff"],
+        "data_processing": ["math_operators", "change_elements", "threshold", "cumulative", "boolean_output", "map_"],
 
-        "apply_function_math_operators": ["addition", "subtraction", "divide", "multiply", "matrix_moltiplication", "module", "power", "round", "normalize"],
+        "data_processing_change_elements": ["pct_change", "diff"],
 
-        "apply_function_math_operators_addition": ["add", "radd"],
+        "data_processing_math_operators": ["addition", "subtraction", "divide", "multiply", "matrix_moltiplication", "module", "power", "round", "normalize"],
 
-        "apply_function_math_operators_subtraction": ["sub", "rsub"],
+        "data_processing_math_operators_addition": ["add", "radd"],
 
-        "apply_function_math_operators_divide": ["div", "truediv", "floordiv", "rdiv", "rtruediv", "rfloordiv"],
+        "data_processing_math_operators_subtraction": ["sub", "rsub"],
 
-        "apply_function_math_operators_multiply": ["mul", "rmul"],
+        "data_processing_math_operators_divide": ["div", "truediv", "floordiv", "rdiv", "rtruediv", "rfloordiv"],
 
-        "apply_function_math_operators_matrix_moltiplication": ["dot"],
+        "data_processing_math_operators_multiply": ["mul", "rmul"],
 
-        "apply_function_math_operators_module": ["mod", "rmod", "abs"],
+        "data_processing_math_operators_matrix_moltiplication": ["dot"],
 
-        "apply_function_math_operators_power": ["pow", "rpow"],
+        "data_processing_math_operators_module": ["mod", "rmod", "abs"],
 
-        "apply_function_math_operators_round": ["round"],
+        "data_processing_math_operators_power": ["pow", "rpow"],
 
-        "apply_function_others": ["where", "mask", "apply", "map", "pipe", "transform"],
+        "data_processing_math_operators_round": ["round"],
 
-        "apply_function_threshold": ["clip"],
+        "data_processing_map_": ["where", "mask", "apply", "map", "pipe", "transform"],
 
-        "apply_function_cumulative": ["cummax", "cummin", "cumprod", "cumsum"],
+        "data_processing_threshold": ["clip"],
 
-        "apply_function_boolean_output": ["check_null", "relational"],
+        "data_processing_cumulative": ["cummax", "cummin", "cumprod", "cumsum"],
 
-        "apply_function_boolean_output_relational": ["less_then", "greater_then", "greater_or_equal", "less_or_equal", "equal", "not_equal"],
+        "data_processing_boolean_output": ["check_null", "relational"],
 
-        "apply_function_boolean_output_relational_less_then": ["lt"],
+        "data_processing_boolean_output_relational": ["less_then", "greater_then", "greater_or_equal", "less_or_equal", "equal", "not_equal"],
 
-        "apply_function_boolean_output_relational_greater_then": ["gt"],
+        "data_processing_boolean_output_relational_less_then": ["lt"],
 
-        "apply_function_boolean_output_relational_greater_or_equal": ["ge"],
+        "data_processing_boolean_output_relational_greater_then": ["gt"],
 
-        "apply_function_boolean_output_relational_less_or_equal": ["le"],
+        "data_processing_boolean_output_relational_greater_or_equal": ["ge"],
 
-        "apply_function_boolean_output_relational_equal": ["eq"],
+        "data_processing_boolean_output_relational_less_or_equal": ["le"],
 
-        "apply_function_boolean_output_relational_not_equal": ["ne"],
+        "data_processing_boolean_output_relational_equal": ["eq"],
 
-        "apply_function_boolean_output_check_null": ["isna", "isnull", "notna", "notnull"],
+        "data_processing_boolean_output_relational_not_equal": ["ne"],
+
+        "data_processing_boolean_output_check_null": ["isna", "isnull", "notna", "notnull"],
 
         "combine": ["combine", "combine_first"],
 
@@ -99,7 +99,7 @@ class MySelectBox extends Component {
 
         "time_series": ["shift", "to_timestamp", "tz_convert", "tz_localize"],
 
-        "sort": ["sort_values", "sort_index"],
+        "sort": ["sort_values", "sort_index", "random"],
 
         "null_values": ["interpolate", "fillna"]
       },
@@ -125,7 +125,7 @@ class MySelectBox extends Component {
       "pipe", "transform", "clip", "cummax", "cummin", "cumprod", "cumsum", "lt", "gt", "ge", "le", "eq", "ne", "isna",
       "isnull", "notna", "notnull", "combine", "combine_first", "reindex", "reindex_like", "rename", "rename_axis",
       "reset_index", "set_axis", "set_index", "shift", "to_timestamp", "tz_convert", "tz_localize", "sort_values", "sort_index",
-      "interpolate", "fillna", "pct_change", "diff", "normalize"
+      "interpolate", "fillna", "pct_change", "diff", "normalize", "one_hot", "aggregate", "explode"
     ];
 
     this.onDataReceived = this.onDataReceived.bind(this)
