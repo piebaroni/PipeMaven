@@ -23,3 +23,20 @@ It combines the flexibility of React for the front-end user interface with the r
    ```bash
    git clone https://github.com/piebaroni/PipeMaven.git
    cd PipeMaven
+2. Install frontend dependencies:
+   ```bash
+   cd frontend
+   npm install
+3. Install backend dependencies:
+   ```bash
+   cd ../backend
+   pip install -r requirements.txt
+4. Start the React development server:
+   ```bash
+   cd ../frontend
+   npm start
+5. In a separate terminal, start the Flask backend:
+   ```bash
+   cd ../backend
+   flask run 
+6. Open your browser and navigate to http://localhost:3000 to access PipeMaven. 
