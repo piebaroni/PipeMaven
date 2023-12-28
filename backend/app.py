@@ -3,8 +3,9 @@ from flask import Flask
 from flask import request, send_file, after_this_request, jsonify
 import os
 from flask_cors import CORS
-from pipelines import exec_pipeline2, eval_pipeline
+from pipelines import exec_pipeline2, eval_pipeline, scoring
 import sys
+import pandas as pd
 
 existsInput = False
 existsOutput = False
@@ -48,9 +49,14 @@ def setDataset():
           return "No selected file", 400
 
      if file:
-          file.save(os.path.join(destination_path, 'input.csv'))
+          file_path = os.path.join(destination_path, 'input.csv')
+          file.save(file_path)
           existsInput = True
-          return "File uploaded successfully", 201
+          
+          df = pd.read_csv(file_path)
+          results = scoring(df)
+
+          return results, 201
 
 
 #Download Dataset

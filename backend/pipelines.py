@@ -27,6 +27,37 @@ def one_hot(df, operation):
             df = df.drop([col], axis=1)
     return df
 
+def identify_outliers(column):
+    Q1 = column.quantile(0.25)
+    Q3 = column.quantile(0.75)
+    IQR = Q3 - Q1
+
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+
+    outliers = (column < lower_bound) | (column > upper_bound)
+    return outliers
+
+def scoring(df):
+    delete_or_fill = []
+    outliers = []
+    # delete or fill
+    for column in df.columns:
+        SDC = df[column].isnull().sum()/df.shape[0]
+        if SDC != 0.0:
+            formatted_SDC = "{:.2f}".format(SDC*100)
+            delete_or_fill.append(column + ': ' + formatted_SDC + '%')
+    
+    # filter outliers
+    columns = df.select_dtypes(include = [int, float]).columns
+    for column in columns:
+        out = identify_outliers(df[column]).sum()/df.shape[0]
+        formatted_out = "{:.2f}".format(out*100)
+        outliers.append(column + ': ' + formatted_out + '%')
+
+    return ('Delete or fill missing values: ' + str(delete_or_fill) + '\nFilter Outliers: ' + str(outliers))
+
+
 #Execute pipeline
 def exec_pipeline2(operations):
     current_directory = os.path.dirname(os.path.abspath(__file__))

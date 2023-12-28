@@ -57,7 +57,7 @@ export default class APIService {
 	static async SetDataset(file) {
 		if (!file) {
 			alert("Please select a file to upload.");
-			return;
+			return null;
 		}
 		const formData = new FormData();
 		formData.append("file", file);
@@ -74,11 +74,15 @@ export default class APIService {
 			);
 			if (response.status === 201) {
 				alert("File uploaded successfully!");
+				//const responseData = await response.json();	
+				return response.data;
 			} else {
 				alert("File upload failed.");
+				return null;
 			}
 		} catch (error) {
 			console.error("Error uploading file:", error);
+			return null;
 		}
 	}
 

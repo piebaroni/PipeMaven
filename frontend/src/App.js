@@ -13,7 +13,8 @@ class App extends Component {
     this.state = {
       currentFunction: '',
       file: null,
-      csvData: []
+      csvData: [],
+      response: ''
     };
   }
 
@@ -67,11 +68,15 @@ class App extends Component {
     });
   };
 
-  handleUploadClick = () => {
+  handleUploadClick = async () => {
     const file = this.state.file;
     console.log(file)
-    APIService.SetDataset(file)
+    const responseData = await APIService.SetDataset(file)
       .catch((error) => console.log('error', error));
+    if (responseData) {
+      console.log("Response data:", responseData);
+      this.setState({response: responseData})
+    }
   };
 
   handleDownloadClick = async () => {
@@ -91,6 +96,16 @@ class App extends Component {
     }
   };
 
+  addLineBreak = (str) =>
+    str.split('\n').map((subStr) => {
+      return (
+        <>
+          {subStr}
+          <br />
+          <br />
+        </>
+      );
+    });
 
   render() {
     return (
@@ -104,6 +119,9 @@ class App extends Component {
           <label htmlFor='input' className='button-59'>Select Dataset</label>
           <button onClick={this.handleUploadClick} className='button-59'>Upload Dataset</button>
           <CSVDataTable data={this.state.csvData}></CSVDataTable>
+          {this.state.response && (<div>
+            <h3>Suggested preparators:</h3>
+            <p>{this.addLineBreak(this.state.response)}</p></div>)}
           <button onClick={this.handleDownloadClick} className='button-59'>Download Output</button>
         </div>
         <Pipeline nextFunction={this.state.currentFunction} updateFunction={this.processData}></Pipeline>
