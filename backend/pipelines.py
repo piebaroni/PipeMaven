@@ -2,6 +2,7 @@ import pandas as pd
 import os
 import time
 import sys
+import statistics
 import re
 import numpy as np
 from scipy.stats import entropy
@@ -37,6 +38,65 @@ def identify_outliers(column):
 
     outliers = (column < lower_bound) | (column > upper_bound)
     return outliers
+
+# Return dataset statistics
+def get_statistics():
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    input_file_path = os.path.join(current_directory, "../data/input/input.csv")
+    df = pd.read_csv(input_file_path, low_memory = False)
+    rows = df.shape[0]
+    columns = df.shape[1]
+    result_dict = {}
+    for column in df.columns:
+        if pd.api.types.is_numeric_dtype(df[column]):
+            # Mean
+            mean_value = df[column].mean()
+            # Median
+            median_value = df[column].median()
+            # Mode
+            mode_value = statistics.mode(df[column]) if len(set(df[column])) < len(df[column]) else None
+            # Standard Deviation
+            std_dev_value = df[column].std()
+            # Range
+            range_value = df[column].max() - df[column].min()
+            result_dict[column + ": "] = {
+                "mean,": str(mean_value) + ", ",
+                "median,": str(median_value) + ", ",
+                "mode,": str(mode_value) + ", ",
+                "std_dev,": str(std_dev_value) + ", ",
+                "range": str(range_value)
+                }
+    result_df = pd.DataFrame(result_dict).T
+    results = "Number of columns: " + str(columns) + "\nNumber of rows: " + str(rows) + "\nDataset Statistics: " + str(result_df)
+    return results
+
+# Return suggested preparators
+def get_preparators():
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    input_file_path = os.path.join(current_directory, "../data/input/input.csv")
+    df = pd.read_csv(input_file_path, low_memory = False)
+    rows = df.shape[0]
+    n_columns = df.shape[1]
+    delete = []
+    fill = []
+    outliers = []
+    types = []
+    for column in df.columns:
+        types.append(column + ': ' + str(df[column].dtype))
+        SDC = df[column].isnull().sum()/df.shape[0]
+        if SDC != 0.0:
+            formatted_SDC = "{:.2f}".format(SDC*100)
+            if SDC >= 0.25:
+                delete.append(column + ': ' + formatted_SDC + '%')
+            else:
+                fill.append(column + ': ' + formatted_SDC + '%')
+        if pd.api.types.is_numeric_dtype(df[column]):
+            out = identify_outliers(df[column]).sum()/df.shape[0]
+            formatted_out = "{:.2f}".format(out*100)
+            outliers.append(column + ': ' + formatted_out + '%')
+
+
+    return "Delete column: " + str(delete) + "\nFill column: " + str(fill) + "\nOutliers: " + str(outliers) + "\n Column types: " + str(types)
 
 def scoring(df):
     delete_or_fill = []

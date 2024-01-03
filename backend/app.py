@@ -3,7 +3,7 @@ from flask import Flask
 from flask import request, send_file, after_this_request, jsonify
 import os
 from flask_cors import CORS
-from pipelines import exec_pipeline2, eval_pipeline, scoring
+from pipelines import exec_pipeline2, eval_pipeline, get_statistics, get_preparators
 import sys
 import pandas as pd
 
@@ -52,11 +52,7 @@ def setDataset():
           file_path = os.path.join(destination_path, 'input.csv')
           file.save(file_path)
           existsInput = True
-          
-          df = pd.read_csv(file_path)
-          results = scoring(df)
-
-          return results, 201
+          return "File successfully uploaded", 201
 
 
 #Download Dataset
@@ -80,3 +76,20 @@ def get_dataset():
         return send_file(dataset_file_path, as_attachment=True, mimetype='text/csv')
      except Exception as e:
         return str(e)
+
+#Download Dataset
+@app.route("/get_stats", methods=["GET"])
+def get_stats():
+     if not existsInput:
+        return 'No file uploaded', 400
+     response = get_statistics()
+     return jsonify(response), 200
+     
+
+#Download Dataset
+@app.route("/get_prep", methods=["GET"])
+def get_prep():
+     if not existsInput:
+        return 'No file uploaded', 400
+     response = get_preparators()
+     return response, 200

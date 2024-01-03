@@ -14,7 +14,8 @@ class App extends Component {
       currentFunction: '',
       file: null,
       csvData: [],
-      response: ''
+      stats: "",
+      prep: ""
     };
   }
 
@@ -28,7 +29,7 @@ class App extends Component {
   handleFileChange = (e) => {
     if (e.target.files) {
       const file = e.target.files[0];
-      this.setState({ file: file}, () => {
+      this.setState({ file: file }, () => {
         console.log(this.state.file);
         this.readFileContents();
       });
@@ -71,12 +72,8 @@ class App extends Component {
   handleUploadClick = async () => {
     const file = this.state.file;
     console.log(file)
-    const responseData = await APIService.SetDataset(file)
+    APIService.SetDataset(file)
       .catch((error) => console.log('error', error));
-    if (responseData) {
-      console.log("Response data:", responseData);
-      this.setState({response: responseData})
-    }
   };
 
   handleDownloadClick = async () => {
@@ -93,6 +90,24 @@ class App extends Component {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error downloading file:', error);
+    }
+  };
+
+  handleStatsClick = async () => {
+    const responseData = await APIService.GetStats()
+      .catch((error) => console.log('error', error));
+    if (responseData) {
+      console.log("Response data:", responseData);
+      this.setState({ stats: responseData })
+    }
+  };
+
+  handlePrepClick = async () => {
+    const responseData = await APIService.GetPrep()
+      .catch((error) => console.log('error', error));
+    if (responseData) {
+      console.log("Response data:", responseData);
+      this.setState({ prep: responseData })
     }
   };
 
@@ -119,9 +134,17 @@ class App extends Component {
           <label htmlFor='input' className='button-59'>Select Dataset</label>
           <button onClick={this.handleUploadClick} className='button-59'>Upload Dataset</button>
           <CSVDataTable data={this.state.csvData}></CSVDataTable>
-          {this.state.response && (<div>
-            <h3>Suggested preparators:</h3>
-            <p>{this.addLineBreak(this.state.response)}</p></div>)}
+          <button onClick={this.handleStatsClick} className='button-59'>Show Dataset Statistics</button>
+          <button onClick={this.handlePrepClick} className='button-59'>Show suggested preparators</button>
+          {this.state.stats && (<div><h2>Statistics:</h2>
+            <p>{this.addLineBreak(this.state.stats)}</p>
+          </div>
+          )}
+          {this.state.prep && (<div><h2>Suggested preparators:</h2>
+            <p>{this.addLineBreak(this.state.prep)}</p>
+          </div>
+          )}
+          <br />
           <button onClick={this.handleDownloadClick} className='button-59'>Download Output</button>
         </div>
         <Pipeline nextFunction={this.state.currentFunction} updateFunction={this.processData}></Pipeline>
