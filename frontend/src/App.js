@@ -4,6 +4,8 @@ import MySelectBox from './components/Selectbox';
 import Pipeline from './components/Pipeline';
 import APIService from './components/APIService';
 import CSVDataTable from './components/CSVDataTable';
+import ModalStats from './components/Modals/ModalStats';
+import ModalPrep from './components/Modals/ModalPrep';
 import "./global.css"
 
 class App extends Component {
@@ -134,16 +136,8 @@ class App extends Component {
           <label htmlFor='input' className='button-59'>Select Dataset</label>
           <button onClick={this.handleUploadClick} className='button-59'>Upload Dataset</button>
           <CSVDataTable data={this.state.csvData}></CSVDataTable>
-          <button onClick={this.handleStatsClick} className='button-59'>Show Dataset Statistics</button>
-          <button onClick={this.handlePrepClick} className='button-59'>Show suggested preparators</button>
-          {this.state.stats && (<div><h2>Statistics:</h2>
-            <p>{this.addLineBreak(this.state.stats)}</p>
-          </div>
-          )}
-          {this.state.prep && (<div><h2>Suggested preparators:</h2>
-            <p>{this.addLineBreak(this.state.prep)}</p>
-          </div>
-          )}
+          <ModalStats></ModalStats>
+          <ModalPrep> </ModalPrep>
           <br />
           <button onClick={this.handleDownloadClick} className='button-59'>Download Output</button>
         </div>

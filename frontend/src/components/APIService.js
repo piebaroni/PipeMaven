@@ -109,7 +109,6 @@ export default class APIService {
 				alert("No dataset uploaded");
 				return null;
 			} else if (response.status === 200) {
-				alert("Statistics Fetched!");
 				const responseData = await response.data;
 				return responseData;}
 		} catch (error) {
@@ -122,7 +121,6 @@ export default class APIService {
 		try {
 			const response = await axios.get('http://localhost:5000/get_prep');
 			if (response.status === 200) {
-				alert("Suggested preparators Fetched!");
 				const responseData = await response.data;
 				return responseData;
 			} else if (response.status === 400) {
