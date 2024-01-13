@@ -81,8 +81,12 @@ def get_preparators():
     fill = []
     outliers = []
     types = []
+    distinct = []
     for column in df.columns:
         types.append(column + ': ' + str(df[column].dtype))
+        dist = df[column].nunique()
+        if dist < 10:
+            distinct.append(column + ': ' + dist)
         SDC = df[column].isnull().sum()/df.shape[0]
         if SDC != 0.0:
             formatted_SDC = "{:.2f}".format(SDC*100)
@@ -96,7 +100,7 @@ def get_preparators():
             outliers.append(column + ': ' + formatted_out + '%')
 
 
-    return "Delete column: " + str(delete) + "\nFill column: " + str(fill) + "\nOutliers: " + str(outliers) + "\n Column types: " + str(types)
+    return "Delete column: " + str(delete) + "\nFill column: " + str(fill) + "\nOutliers: " + str(outliers) + "\n One Hot Encoding: " + str(distinct) + "\n Column types: " + str(types)
 
 def scoring(df):
     delete_or_fill = []

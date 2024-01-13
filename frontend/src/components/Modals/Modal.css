@@ -30,6 +30,23 @@ body.active-modal {
     touch-action: manipulation;
 }
 
+
+.btn-modal:focus {
+    color: #171e29;
+}
+
+.btn-modal:hover {
+    border-color: #09cc00;
+    color: #09cc00;
+    fill: #09cc00;
+}
+
+.btn-modal:active {
+    border-color: #09cc00;
+    color: #09cc00;
+    fill: #09cc00;
+}
+
 .modal,
 .overlay {
     width: 100vw;
@@ -90,4 +107,20 @@ body.active-modal {
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
+}
+
+.close-modal:focus {
+    color: #171e29;
+}
+
+.close-modal:hover {
+    border-color: #09cc00;
+    color: #09cc00;
+    fill: #09cc00;
+}
+
+.close-modal:active {
+    border-color: #09cc00;
+    color: #09cc00;
+    fill: #09cc00;
 }
